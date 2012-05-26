@@ -10,53 +10,50 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+// THIS CODE IS PART OF DeathControl PLUGIN BY Bone008
+// http://dev.bukkit.org/server-mods/deathcontrol/
+
 public enum DeathCause {
-	CONTACT("кактуса", "заколот кактусом"),
-	SUFFOCATION("удушья", "задохнулся"),
-	FALL("падения", "разбился в лепешку"),
-	VOID("падения в бездну", "улетел в космос"),
-	SUICIDE("своей руки", "committed suicide"),
-	STARVATION("голода", "starved"),
-	LIGHTNING("молнии", "were struck by lightning"),
-	MAGIC("магии", "were killed by magic"),
-	POISON("яда", "were killed by poison"),
-	DROWNING("утопления", "drowned"),
-	LAVA("лавы", "died of lava"),
-	FIRE("огня", "died of fire"),
-	FIRE_TICK(FIRE, "tick", null),
-	EXPLOSION("взрыва", "exploded"),
-	MOB("злых мобов", "were killed by a mob"),
-	MOB_CREEPER(MOB, "взрыва крипера", "fell victim to a creeper"),
-	MOB_WOLF(MOB, "укуса волка", "were killed by a wolf"),
-	PLAYER("руки другого игрока", "were killed by a player"),
-	UNKNOWN("неизвестной болезни", "don't know why you died");
+	CONTACT("кактуса"),
+	SUFFOCATION("удушья"),
+	FALL("падения"),
+	VOID("падения в бездну"),
+	SUICIDE("смертельного суицида"),
+	STARVATION("голода"),
+	LIGHTNING("молнии"),
+	MAGIC("магии"),
+	POISON("яда"),
+	DROWNING("утопления"),
+	LAVA("лавы"),
+	FIRE("огня"),
+	FIRE_TICK(FIRE, "tick"),
+	EXPLOSION("взрыва"),
+	MOB("злых монстров"),
+	MOB_CREEPER(MOB, "взрыва крипера"),
+	MOB_WOLF(MOB, "укуса волка"),
+	MOB_ASS(MOB, "плотоядной жопы"),
+	PLAYER("руки другого игрока"),
+	UNKNOWN("неизвестной болезни");
 
 	private final String name;
 	private final String meta;
-	private final String msgString;
 	public final DeathCause parent;
 
-	private DeathCause(String name, String msgString){
+	private DeathCause(String name){
 		this.name = name;
 		this.meta = null;
-		this.msgString = msgString;
 		this.parent = null;
 	}
-	private DeathCause(DeathCause parent, String meta, String msgString){
+	private DeathCause(DeathCause parent, String meta){
 		if(parent == null)
 			throw new IllegalArgumentException();
 		this.name = parent.name;
 		this.meta = meta;
-		this.msgString = (msgString==null ? parent.msgString : msgString);
 		this.parent = parent;
 	}
 
 	public String toName(){
 		return this.name;
-	}
-
-	public String toMsgString(){
-		return this.msgString;
 	}
 
 	/**
